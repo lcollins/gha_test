@@ -1,5 +1,8 @@
 name: Process Input and Generate Files
 
+permissions:
+  contents: write
+
 on:  # Trigger on push event
   push:
     branches: [ main ]  # Limit trigger to pushes to the main branch
