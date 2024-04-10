@@ -33,11 +33,11 @@ jobs:
       - name: Run script
         run: python ${GITHUB_WORKSPACE}/.github/scripts/process_input_and_generate_files.py ${GITHUB_WORKSPACE}/inputs
 
-      - uses: actions/checkout@v4
+      - name: Commit Generated Config
         run: |
           date > generated.txt
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "generated"
+          git commit -m "commit generated config"
           git push
