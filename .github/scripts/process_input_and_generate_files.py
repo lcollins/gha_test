@@ -43,8 +43,3 @@ for subdir in os.listdir(args.input_dir):
         # Extract template zip to output directory (replace with your preferred tool)
         # Assuming you have unzip installed
         #os.system(f"unzip -q {response.content} -d {output_dir}")
-
-        # Add and commit changes
-        os.chdir(output_dir)  # Change directory to root of input dir for git commands
-        os.system("git add .")
-        os.system(f'git commit -m "Generated files for {cluster}/{namespace} ({version})"')
