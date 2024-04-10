@@ -1,6 +1,7 @@
 import argparse
 import os
-import requests
+import shutil
+#import requests
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser()
@@ -37,8 +38,22 @@ for subdir in os.listdir(args.input_dir):
         #response.raise_for_status()
 
         # Create output directory using cluster and namespace
-        output_dir = os.path.join('clusters', cluster, 'namespaces', namespace, 'cloud-infra')
-        os.makedirs(output_dir, exist_ok=True)
+        cloud_infra_dir = os.path.join('clusters', cluster, 'namespaces', namespace, 'cloud-infra')
+        cloud_infra_common_dir = os.path.join(cloud_infra_dir, 'common')
+        
+        cloud_infra_global_conf_dir = os.path.join(cloud_infra_dir, 'components', 'automation-service', 'config', 'global')
+        cloud_infra_global_conf_file = os.path.join(cloud_infra_dir, 'components', 'automation-service', 'config', 'global', 'input.properties')
+
+        os.makedirs(cloud_infra_dir, exist_ok=True)
+        os.makedirs(cloud_infra_common_dir, exist_ok=True)
+        os.makedirs(cloud_infra_global_conf_dir, exist_ok=True)
+
+        try:
+            shutil.copy(filepath, cloud_infra_global_conf_file)
+            print(f"File copied successfully from {filepath} to {cloud_infra_global_conf_file}")
+        except Exception as e:
+            print(f"Error copying file: {e}")
+
 
         # Extract template zip to output directory (replace with your preferred tool)
         # Assuming you have unzip installed
