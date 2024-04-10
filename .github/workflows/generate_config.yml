@@ -14,7 +14,7 @@ on:  # Trigger on push event
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' && contains(github.ref, 'inputs/') }}
+    #if: ${{ github.ref == 'refs/heads/main' && contains(github.ref, 'inputs/') }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
