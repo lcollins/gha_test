@@ -31,4 +31,4 @@ jobs:
         run: pip install requests
 
       - name: Run script
-        run: python process_input_and_generate_files.py <ABC>
+        run: python ${GITHUB_WORKSPACE}/.github/scripts/process_input_and_generate_files.py <ABC>
