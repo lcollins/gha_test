@@ -1,0 +1,31 @@
+name: Process Input and Generate Files
+
+on:  # Trigger on push event
+  push:
+    branches: [ main ]  # Limit trigger to pushes to the main branch
+  # Allow manual triggering via the UI (optional)
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: 'Force a re-run even without input changes'
+        required: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' && contains(github.ref, 'inputs/') }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        run: python process_input_and_generate_files.py <ABC>
