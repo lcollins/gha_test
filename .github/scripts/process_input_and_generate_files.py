@@ -28,25 +28,23 @@ for subdir in os.listdir(args.input_dir):
         cluster = properties.get("TARGET-CLUSTER")
         namespace = properties.get("TARGET-NAMESPACE")
 
-        # Only continue if there were input changes or a forced run
-        if force_run or any(os.path.getmtime(os.path.join(args.input_dir, subdir, f)) > os.environ.get("GITHUB_SHA_TIME") for f in os.listdir(os.path.join(args.input_dir, subdir))):
 
-            # Construct template URL with version as tag
-            #template_url = f"{template_base_url}/archive/refs/tags/{version}.zip"
+        # Construct template URL with version as tag
+        #template_url = f"{template_base_url}/archive/refs/tags/{version}.zip"
 
-            # Download template zip file
-            #response = requests.get(template_url, allow_redirects=True)
-            #response.raise_for_status()
+        # Download template zip file
+        #response = requests.get(template_url, allow_redirects=True)
+        #response.raise_for_status()
 
-            # Create output directory using cluster and namespace
-            output_dir = os.path.join('clusters', cluster, 'namespaces', namespace, 'cloud-infra')
-            os.makedirs(output_dir, exist_ok=True)
+        # Create output directory using cluster and namespace
+        output_dir = os.path.join('clusters', cluster, 'namespaces', namespace, 'cloud-infra')
+        os.makedirs(output_dir, exist_ok=True)
 
-            # Extract template zip to output directory (replace with your preferred tool)
-            # Assuming you have unzip installed
-            #os.system(f"unzip -q {response.content} -d {output_dir}")
+        # Extract template zip to output directory (replace with your preferred tool)
+        # Assuming you have unzip installed
+        #os.system(f"unzip -q {response.content} -d {output_dir}")
 
-            # Add and commit changes
-            os.chdir(output_dir)  # Change directory to root of input dir for git commands
-            os.system("git add .")
-            os.system(f'git commit -m "Generated files for {cluster}/{namespace} ({version})"')
+        # Add and commit changes
+        os.chdir(output_dir)  # Change directory to root of input dir for git commands
+        os.system("git add .")
+        os.system(f'git commit -m "Generated files for {cluster}/{namespace} ({version})"')
